@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Om Mishra - Business Analytics Professional</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Teko:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #0F172A; 
+        }
+        .font-header {
+            font-family: 'Teko', sans-serif;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 350px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+                max-height: 400px;
+            }
+        }
+        .kpi-card {
+            background-color: #1E293B;
+            border-left: 4px solid #F97316;
+        }
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 50%;
+            transform: translateX(-50%);
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background-color: #334155;
+            border-radius: 2px;
+        }
+        .timeline-item {
+            position: relative;
+            width: 50%;
+            padding: 20px 40px;
+            box-sizing: border-box;
+        }
+        .timeline-item:nth-child(odd) {
+            left: 0;
+            padding-right: 60px;
+        }
+        .timeline-item:nth-child(even) {
+            left: 50%;
+            padding-left: 60px;
+        }
+        .timeline-dot {
+            position: absolute;
+            top: 25px;
+            width: 20px;
+            height: 20px;
+            background-color: #F97316;
+            border: 4px solid #0F172A;
+            border-radius: 50%;
+            z-index: 10;
+        }
+        .timeline-item:nth-child(odd) .timeline-dot {
+            right: -10px;
+            transform: translateX(50%);
+        }
+        .timeline-item:nth-child(even) .timeline-dot {
+            left: -10px;
+            transform: translateX(-50%);
+        }
+    </style>
+</head>
+<body class="text-slate-200">
+<!-- 
+    Narrative Plan:
+    1.  Hero Section: Introduce Om Mishra and his core value proposition.
+    2.  Core Competencies: Visualize his technical skills using a Radar Chart.
+    3.  Key Achievements: Highlight standout accomplishments with large numbers.
+    4.  Experience Timeline: Show his career progression with a structured HTML/CSS timeline.
+    5.  Project Showcase: Detail his key projects, including a SWOT analysis diagram.
+    6.  Contact/Footer: Provide contact details.
+
+    Visualization Choices:
+    -   Technical Skills -> Goal: Compare -> Chosen Visualization: Radar Chart -> Justification: Excellent for showing proficiency levels across multiple related skill categories in a compact format. Implemented with Chart.js. NO SVG.
+    -   Experience -> Goal: Change -> Chosen Visualization: Timeline -> Justification: Best way to show chronological progression of roles. Implemented with structured HTML/CSS. NO SVG, NO MERMAID JS.
+    -   SWOT Analysis -> Goal: Organize -> Chosen Visualization: Diagram -> Justification: A 2x2 grid is the standard and most effective way to present a SWOT analysis. Implemented with structured HTML/CSS. NO SVG, NO MERMAID JS.
+    -   Revenue Growth -> Goal: Inform -> Chosen Visualization: Single Big Number -> Justification: Creates high impact for a key metric. Implemented with HTML/CSS. NO SVG.
+
+    Color Palette: Energetic & Playful
+    -   Background: #0F172A (Slate 900)
+    -   Card/Accent Background: #1E293B (Slate 800)
+    -   Primary Accent: #F97316 (Orange 500)
+    -   Secondary Accent: #38BDF8 (Light Blue 400)
+    -   Text: #E2E8F0 (Slate 200)
+    -   Chart Colors: ['#F97316', '#38BDF8', '#A3E635', '#F43F5E']
+
+    Confirmation: NEITHER Mermaid JS NOR SVG were used in this output.
+-->
+    <div class="container mx-auto p-4 md:p-8">
+
+        <header class="text-center mb-16">
+            <h1 class="font-header text-6xl md:text-8xl font-bold text-white tracking-wider">OM MISHRA</h1>
+            <p class="text-2xl md:text-3xl text-slate-300 mt-2">Business Analytics Professional</p>
+        </header>
+
+        <main>
+            <section id="skills" class="mb-20">
+                <div class="bg-slate-800 rounded-lg shadow-2xl p-6 md:p-8">
+                    <h2 class="font-header text-5xl text-center mb-8 text-orange-500">Core Competencies</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                        <div>
+                            <p class="text-lg text-slate-300 leading-relaxed">
+                                This visualization highlights the synergy between Om's technical and analytical capabilities. His proficiency in data visualization tools like Power BI and Tableau is complemented by a strong foundation in Python for data manipulation and analysis. This combination allows him to not only process and analyze complex datasets but also to present the findings as compelling, actionable insights that drive strategic decisions.
+                            </p>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="skillsChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="achievements" class="mb-20">
+                 <h2 class="font-header text-5xl text-center mb-8 text-orange-500">Career Highlights</h2>
+                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+                    <div class="kpi-card p-6 rounded-lg shadow-lg">
+                        <p class="text-6xl font-bold text-white">10%</p>
+                        <p class="text-slate-400 mt-2">Revenue Growth Contributed at Valency Agro</p>
+                    </div>
+                    <div class="kpi-card p-6 rounded-lg shadow-lg">
+                        <p class="text-6xl font-bold text-white">1st</p>
+                        <p class="text-slate-400 mt-2">Place in Marketing & PR Management (IGNITE’21)</p>
+                    </div>
+                    <div class="kpi-card p-6 rounded-lg shadow-lg">
+                        <p class="text-6xl font-bold text-white">5+</p>
+                        <p class="text-slate-400 mt-2">Key Market Trends Identified via Research</p>
+                    </div>
+                 </div>
+            </section>
+
+            <section id="experience" class="mb-20">
+                <h2 class="font-header text-5xl text-center mb-12 text-orange-500">Professional Journey</h2>
+                <div class="relative timeline max-w-4xl mx-auto">
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="bg-slate-800 p-6 rounded-lg shadow-xl">
+                            <time class="text-sm text-orange-400">Nov 2024 - Present</time>
+                            <h3 class="text-2xl font-bold text-white mt-1">Marketing Executive</h3>
+                            <p class="text-slate-400">Oncosys Formulation Pvt Ltd.</p>
+                            <p class="mt-3 text-slate-300">Drives targeted campaigns by analyzing real-time sales data and coordinates with stakeholders to optimize stock levels and supply chain efficiency.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="bg-slate-800 p-6 rounded-lg shadow-xl">
+                            <time class="text-sm text-orange-400">Jun 2024 - Nov 2024</time>
+                            <h3 class="text-2xl font-bold text-white mt-1">Marketing Executive Intern</h3>
+                            <p class="text-slate-400">Oncosys Formulation Pvt Ltd.</p>
+                            <p class="mt-3 text-slate-300">Streamlined inventory forecasting and aligned promotional efforts with market demand by interpreting research data.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="bg-slate-800 p-6 rounded-lg shadow-xl">
+                            <time class="text-sm text-orange-400">Jul 2023 - Aug 2023</time>
+                            <h3 class="text-2xl font-bold text-white mt-1">Sales and Marketing Intern</h3>
+                            <p class="text-slate-400">Valency Agro Pvt. Ltd.</p>
+                            <p class="mt-3 text-slate-300">Developed Tableau dashboards to monitor sales KPIs and identified key market trends, contributing to a 10% revenue increase.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section id="projects" class="mb-16">
+                <h2 class="font-header text-5xl text-center mb-8 text-orange-500">Project Showcase</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div class="bg-slate-800 p-6 rounded-lg shadow-2xl">
+                        <h3 class="font-header text-3xl text-light-blue-400 mb-4">Pharma Sector SWOT Analysis</h3>
+                        <p class="text-slate-300 mb-6">This project involved a deep dive into the pharmaceutical industry's market dynamics. The SWOT analysis provided a clear framework for evaluating internal and external factors, leading to actionable strategic insights.</p>
+                        <div class="grid grid-cols-2 gap-4 text-center">
+                            <div class="bg-green-800/50 p-4 rounded">
+                                <h4 class="font-bold text-lg text-green-300">Strengths</h4>
+                                <p class="text-sm text-slate-300">Strong R&D, Established Brands</p>
+                            </div>
+                             <div class="bg-red-800/50 p-4 rounded">
+                                <h4 class="font-bold text-lg text-red-300">Weaknesses</h4>
+                                <p class="text-sm text-slate-300">High Compliance Costs, Patent Expirations</p>
+                            </div>
+                             <div class="bg-blue-800/50 p-4 rounded">
+                                <h4 class="font-bold text-lg text-blue-300">Opportunities</h4>
+                                <p class="text-sm text-slate-300">Emerging Markets, Biotech Growth</p>
+                            </div>
+                             <div class="bg-yellow-800/50 p-4 rounded">
+                                <h4 class="font-bold text-lg text-yellow-300">Threats</h4>
+                                <p class="text-sm text-slate-300">Regulatory Changes, Price Controls</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-slate-800 p-6 rounded-lg shadow-2xl">
+                        <h3 class="font-header text-3xl text-light-blue-400 mb-4">Financial Fraud Research</h3>
+                         <p class="text-slate-300">This academic research paper focused on identifying common patterns in financial statement manipulation. By applying data analytics, the project uncovered key indicators of fraudulent activity and proposed a framework of preventive measures for organizations.</p>
+                         <div class="mt-6 flex flex-col space-y-3">
+                            <div class="flex items-center"><span class="text-orange-500 mr-3 text-xl">&#10140;</span><span>Identified revenue recognition anomalies.</span></div>
+                            <div class="flex items-center"><span class="text-orange-500 mr-3 text-xl">&#10140;</span><span>Analyzed unusual inventory and asset valuations.</span></div>
+                            <div class="flex items-center"><span class="text-orange-500 mr-3 text-xl">&#10140;</span><span>Proposed data-driven internal control systems.</span></div>
+                         </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="text-center border-t border-slate-700 pt-8 mt-12">
+            <p class="text-xl font-bold">Get in Touch</p>
+            <p class="text-slate-400 mt-2">om7272.mishra@gmail.com | +91 6386734752</p>
+            <p class="text-slate-400">linkedin.com/in/om-mishra-605509250</p>
+        </footer>
+
+    </div>
+
+    <script>
+        function wrapLabel(label, maxWidth) {
+            const words = label.split(' ');
+            let lines = [];
+            let currentLine = words[0];
+
+            for (let i = 1; i < words.length; i++) {
+                if ((currentLine + ' ' + words[i]).length > maxWidth) {
+                    lines.push(currentLine);
+                    currentLine = words[i];
+                } else {
+                    currentLine += ' ' + words[i];
+                }
+            }
+            lines.push(currentLine);
+            return lines;
+        }
+
+        const tooltipTitleCallback = (tooltipItems) => {
+            const item = tooltipItems[0];
+            let label = item.chart.data.labels[item.dataIndex];
+            if (Array.isArray(label)) {
+                return label.join(' ');
+            }
+            return label;
+        };
+        
+        const skillsCtx = document.getElementById('skillsChart').getContext('2d');
+        const skillsChart = new Chart(skillsCtx, {
+            type: 'radar',
+            data: {
+                labels: [
+                    'Data Visualization', 
+                    wrapLabel('Business Analytics', 16), 
+                    'Python Programming', 
+                    'Project Management', 
+                    wrapLabel('Financial Analysis', 16)
+                ],
+                datasets: [{
+                    label: 'Proficiency',
+                    data: [90, 85, 75, 80, 88],
+                    backgroundColor: 'rgba(249, 115, 22, 0.2)',
+                    borderColor: '#F97316',
+                    pointBackgroundColor: '#F97316',
+                    pointBorderColor: '#fff',
+                    pointHoverBackgroundColor: '#fff',
+                    pointHoverBorderColor: '#F97316'
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+                scales: {
+                    r: {
+                        angleLines: { color: 'rgba(255, 255, 255, 0.2)' },
+                        grid: { color: 'rgba(255, 255, 255, 0.2)' },
+                        pointLabels: { 
+                            color: '#E2E8F0',
+                            font: {
+                                size: 12
+                            }
+                        },
+                        ticks: {
+                            color: '#0F172A',
+                            backdropColor: 'rgba(255, 255, 255, 0.8)',
+                            backdropPadding: 4,
+                            borderRadius: 4
+                        },
+                        suggestedMin: 0,
+                        suggestedMax: 100
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        callbacks: {
+                            title: tooltipTitleCallback
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
